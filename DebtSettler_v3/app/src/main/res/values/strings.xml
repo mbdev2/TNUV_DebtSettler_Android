@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DebtSettler_v3</string>
+    <string name="shopping_list_button">Shopping_list_button</string>
+    <string name="history_button">history_button</string>
+    <string name="add_button">add_button</string>
+    <string name="imeskupine">ImeSkupine</string>
+    <string name="prekli_i">PREKLIČI</string>
+    <string name="dodaj">DODAJ</string>
+    <string name="opozorilo_prazna_polja">Niste vnesli imena trgovine ali zneska nakupa!</string>
+    <string name="opozorilo_napacen_znesek">Zneska niste vnesli v pravem formatu!</string>
+    <string name="sporocilo_nakup_dodan">Nakup uspešno dodan.</string>
+</resources>
