@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView historyButton;
     ImageView listButton;
 
+    RequestQueue requestQueue;
+
     ArrayList<String> usersList = new ArrayList<>();
     ArrayList<String> zneskiList = new ArrayList<>();
     JSONArray proba = new JSONArray();
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         historyButton = findViewById(R.id.historyButton);
         listButton = findViewById(R.id.zbrisiVseButton);
         membersList = new ArrayList<>();
+
+        requestQueue = Volley.newRequestQueue(this);
 
     //============== dodajanje vseh gumbov v orodni vrstici =====================================================
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if(shouldExecuteOnResume){
             Toast.makeText(getApplicationContext(), "RESUMEEEEEE!", Toast.LENGTH_SHORT).show();
+            usersList.clear();
+            zneskiList.clear();
             posodobiUporabnike();
         } else{
             shouldExecuteOnResume = true;
@@ -108,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
     //     za pridobivanje podatkov o uporabnikih in njihovem stanju
     public void pridobiUporabnike() {
         String url = "https://debtsettler.herokuapp.com/api/users";
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonArrayRequest arrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -165,8 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void posodobiUporabnike() {
         String url = "https://debtsettler.herokuapp.com/api/users";
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonArrayRequest arrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
