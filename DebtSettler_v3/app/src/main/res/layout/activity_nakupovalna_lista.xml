@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nakupovalnaLista">
+    tools:context=".NakupovalnaLista">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/skupina"
@@ -13,22 +13,11 @@
         tools:context=".MainActivity">
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/memberRecycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
-            app:layout_constraintVertical_bias="0.0" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardView"
             android:layout_width="412dp"
             android:layout_height="54dp"
-            android:background="#2196F3"
+            android:background="@color/AppBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +27,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nakupovalna lista"
+                android:text="@string/nakupovalna_lista"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -48,71 +37,70 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemListRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="1.0" />
+
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBarNakupovalnaLista"
+            android:id="@+id/bottomAppBar2"
             style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="bottom"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="4dp"
             app:backgroundTint="#F3F2F2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/addButton"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintTop_toTopOf="@+id/addItemButton"
+            app:layout_constraintVertical_bias="0.0"
             tools:ignore="BottomAppBar" />
 
         <ImageView
-            android:id="@+id/addButton"
-            android:layout_width="79dp"
-            android:layout_height="73dp"
-            android:layout_marginBottom="4dp"
-            android:contentDescription="@string/add_button"
+            android:id="@+id/addItemButton"
+            android:layout_width="65dp"
+            android:layout_height="53dp"
+            android:contentDescription="@string/add_item_button"
+            android:translationZ="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_add"
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            app:tint="@color/ButtonBlue"
             tools:ignore="VectorDrawableCompat" />
 
         <ImageView
-            android:id="@+id/historyButton"
+            android:id="@+id/deleteAllButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:contentDescription="@string/history_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/addButton"
-            app:layout_constraintTop_toTopOf="@+id/bottomAppBarNakupovalnaLista"
-            app:srcCompat="@drawable/ic_baseline_history_24"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/itemListRecycler"
+            app:layout_constraintEnd_toStartOf="@+id/addItemButton"
+            app:layout_constraintStart_toStartOf="@+id/bottomAppBar2"
+            app:layout_constraintTop_toTopOf="@+id/bottomAppBar2"
+            app:srcCompat="@drawable/ic_racing_flag"
             tools:ignore="VectorDrawableCompat" />
 
         <ImageView
-            android:id="@+id/zbrisiVseButton"
+            android:id="@+id/deleteItemButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginRight="64dp"
-            android:contentDescription="@string/shopping_list_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/addButton"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/bottomAppBarNakupovalnaLista"
-            app:srcCompat="@drawable/ic_list"
+            app:layout_constraintBottom_toBottomOf="@+id/itemListRecycler"
+            app:layout_constraintEnd_toEndOf="@+id/bottomAppBar2"
+            app:layout_constraintStart_toEndOf="@+id/addItemButton"
+            app:layout_constraintTop_toTopOf="@+id/bottomAppBar2"
+            app:srcCompat="@drawable/ic_delete"
             tools:ignore="VectorDrawableCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/memberRecycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

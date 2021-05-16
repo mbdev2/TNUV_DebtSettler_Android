@@ -12,18 +12,20 @@
         android:id="@+id/memberRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:paddingBottom="30dp"
+        android:clipToPadding="false"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:background="#2196F3"
+        android:background="@color/AppBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +46,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBarNakupovalnaLista"
+        android:id="@+id/bottomAppBar"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -80,20 +82,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/addButton"
-        app:layout_constraintTop_toTopOf="@+id/bottomAppBarNakupovalnaLista"
+        app:layout_constraintTop_toTopOf="@+id/bottomAppBar"
         app:srcCompat="@drawable/ic_baseline_history_24"
         tools:ignore="VectorDrawableCompat" />
 
     <ImageView
-        android:id="@+id/zbrisiVseButton"
+        android:id="@+id/listButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/shopping_list_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addButton"
         app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="@+id/bottomAppBarNakupovalnaLista"
-        app:layout_constraintTop_toTopOf="@+id/bottomAppBarNakupovalnaLista"
+        app:layout_constraintStart_toStartOf="@+id/bottomAppBar"
+        app:layout_constraintTop_toTopOf="@+id/bottomAppBar"
         app:srcCompat="@drawable/ic_list"
         tools:ignore="VectorDrawableCompat" />
 

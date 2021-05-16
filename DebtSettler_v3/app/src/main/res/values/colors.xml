@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="MoneyGreen">#04BD0D</color>
     <color name="MoneyRed">#8F0404</color>
+    <color name="AppBlue">#219FFF</color>
+    <color name="ButtonBlue">#007FDF</color>
+    <color name="OpacityBlue">#3C219FFF</color>
 </resources>

@@ -9,4 +9,6 @@
     <string name="opozorilo_prazna_polja">Niste vnesli imena trgovine ali zneska nakupa!</string>
     <string name="opozorilo_napacen_znesek">Zneska niste vnesli v pravem formatu!</string>
     <string name="sporocilo_nakup_dodan">Nakup uspešno dodan.</string>
+    <string name="add_item_button">add item button</string>
+    <string name="nakupovalna_lista">Nakupovalna lista</string>
 </resources>

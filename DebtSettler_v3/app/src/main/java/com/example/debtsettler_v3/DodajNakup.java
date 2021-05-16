@@ -111,6 +111,7 @@ public class DodajNakup extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     Log.i("Rest response", getString(R.string.sporocilo_nakup_dodan));
                                     Toast.makeText(getApplicationContext(), getString(R.string.sporocilo_nakup_dodan), Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             },
                             new Response.ErrorListener() {
@@ -138,12 +139,7 @@ public class DodajNakup extends AppCompatActivity {
                                 }
                             };
                     requestQueue.add(stringRequest);
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    finish();
+
                 }
             }
         });
