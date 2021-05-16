@@ -13,10 +13,12 @@
         android:theme="@style/Theme.DebtSettler_v3">
         <activity android:name=".zgodovina"></activity>
         <activity android:name=".NakupovalnaLista" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login" />
         <activity
             android:name=".DodajNakup"
             android:theme="@style/Theme.AppCompat.AddPopUp" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Registracija">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

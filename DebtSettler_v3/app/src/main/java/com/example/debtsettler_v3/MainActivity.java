@@ -1,5 +1,6 @@
 package com.example.debtsettler_v3;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -46,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
+            finish();
+            startActivity(new Intent(this, Login.class));
+        }
 
         shouldExecuteOnResume = false;
 
@@ -218,32 +226,22 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue.add(arrayRequest);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
-    //===============================================================================================================
-
-    // Funkcija za odpiranje in branje JSON filov, samo za testiranje
-    /*public void get_json(){
-        String json;
-        try {
-            InputStream is = getAssets().open("users.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-            JSONArray jsonArray = new JSONArray(json);
-
-            for(int i = 0; i<jsonArray.length(); i++) {
-                JSONObject obj = jsonArray.getJSONObject(i);
-                usersList.add(obj.getString("ime"));
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.buttonMenuOdjava:
+                SharedPrefManager.getInstance(this).logout();
+                finish();
+                startActivity(new Intent(this, Login.class));
+                break;
         }
-    }*/
+        return true;
+    }
+
 }
