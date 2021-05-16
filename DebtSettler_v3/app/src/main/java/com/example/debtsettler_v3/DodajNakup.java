@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class DodajNakup extends AppCompatActivity {
 
@@ -137,6 +138,11 @@ public class DodajNakup extends AppCompatActivity {
                                 }
                             };
                     requestQueue.add(stringRequest);
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     finish();
                 }
             }
