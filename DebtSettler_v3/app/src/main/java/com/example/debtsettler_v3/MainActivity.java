@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(!SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
-            startActivity(new Intent(this, Login.class));
+            startActivity(new Intent(this, Registracija.class));
         }
 
         shouldExecuteOnResume = false;
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.buttonMenuOdjava:
                 SharedPrefManager.getInstance(this).logout();
                 finish();
-                startActivity(new Intent(this, Login.class));
+                startActivity(new Intent(this, Registracija.class));
                 break;
         }
         return true;

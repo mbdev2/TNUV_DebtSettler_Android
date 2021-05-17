@@ -43,4 +43,9 @@ public class SharedPrefManager {
         editor.apply();
         return true;
     }
+
+    public String tokenValue(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_USER_TOKEN, null);
+    }
 }

@@ -40,6 +40,8 @@ public class DodajNakup extends AppCompatActivity {
     EditText opis;
     EditText znesek;
 
+    String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,8 @@ public class DodajNakup extends AppCompatActivity {
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        String token = SharedPrefManager.getInstance(this).tokenValue();
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
@@ -85,7 +89,6 @@ public class DodajNakup extends AppCompatActivity {
                 String znesekStr = znesek.getText().toString();
                 String opisStr = opis.getText().toString();
 
-                String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmMyYjc4ZjRiZTI1NjM4NmM2Yjk2ZWQiLCJlbWFpbCI6Im1hcmsuYnJlem5pa0BnbWFpbC5jb20iLCJpbWUiOiJNYXJrIiwiZXhwIjozMTcxMjU1OTgwNzEsImlhdCI6MTYyMDQ4NDM3NH0.rsRtVofftjNEuau4CXZCp2Qcs3RC54E7vYjXhrNEA78";
 
                 if (trgovinaStr.matches("") && znesekStr.matches("")) {
                     Toast.makeText(getApplicationContext(), getString(R.string.opozorilo_prazna_polja), Toast.LENGTH_SHORT).show();
@@ -134,7 +137,7 @@ public class DodajNakup extends AppCompatActivity {
                                 public Map<String, String> getHeaders() throws AuthFailureError {
                                     Map<String,String> params = new HashMap<String, String>();
                                     params.put("Content-Type","application/x-www-form-urlencoded");
-                                    params.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmMyYjc4ZjRiZTI1NjM4NmM2Yjk2ZWQiLCJlbWFpbCI6Im1hcmsuYnJlem5pa0BnbWFpbC5jb20iLCJpbWUiOiJNYXJrIiwiZXhwIjozMTcxMjU1OTgwNzEsImlhdCI6MTYyMDQ4NDM3NH0.rsRtVofftjNEuau4CXZCp2Qcs3RC54E7vYjXhrNEA78");
+                                    params.put("Authorization", "Bearer "+token);
                                     return params;
                                 }
                             };
