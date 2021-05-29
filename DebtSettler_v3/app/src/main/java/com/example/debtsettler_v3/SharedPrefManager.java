@@ -3,6 +3,12 @@ package com.example.debtsettler_v3;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class SharedPrefManager {
     private static SharedPrefManager mInstance;
     private static Context mCtx;
@@ -47,5 +53,24 @@ public class SharedPrefManager {
     public String tokenValue(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_USER_TOKEN, null);
+    }
+
+    public boolean userColorsFill(Map<String, String> barveUpHashMap) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String hashMapString = gson.toJson(barveUpHashMap);
+        editor.putString("hashString", hashMapString);
+        editor.apply();
+        return true;
+    }
+
+    public Map<String, String> userColorsReturn() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String storedHashMapString = sharedPreferences.getString("hashString", null);
+        Gson gson = new Gson();
+        java.lang.reflect.Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+        HashMap<String, String> testHashMap2 = gson.fromJson(storedHashMapString, type);
+        return testHashMap2;
     }
 }
