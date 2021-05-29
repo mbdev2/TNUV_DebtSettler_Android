@@ -1,10 +1,5 @@
 package com.example.debtsettler_v3;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,7 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         //Log.e("Rest response", response.toString());
+                        Map<String, String> barveUpHashMap = new HashMap<String, String>();
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject obj = null;
                             try {
@@ -146,7 +149,17 @@ public class MainActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            try {
+                                barveUpHashMap.put(obj.getString("_id"), obj.getString("barvaUporabnika"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
+
+                        SharedPrefManager.getInstance(getApplicationContext())
+                                .userColorsFill(
+                                        barveUpHashMap
+                                );
 
                         int vsota = 0;
                         for (int i = 0; i < zneskiList.size(); i++) {
