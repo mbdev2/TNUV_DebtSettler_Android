@@ -18,6 +18,9 @@
         <activity
             android:name=".DodajNakup"
             android:theme="@style/Theme.AppCompat.AddPopUp" />
+        <activity
+            android:name=".DodajIzdelek"
+            android:theme="@style/Theme.AppCompat.AddPopUp" />
         <activity android:name=".Registracija">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

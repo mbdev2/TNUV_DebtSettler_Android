@@ -2,25 +2,25 @@ package com.example.debtsettler_v3.model;
 
 public class Items {
 
-    Integer id;
+    String id;
     String name;
     String opis;
     boolean isSelected;
 
 
-    public Items(Integer id, String name, String opis, boolean isSelected) {
+    public Items(String id, String name, String opis, boolean isSelected) {
         this.id = id;
         this.name = name;
         this.opis = opis;
         this.isSelected = isSelected;
     }
 
-    public Integer getId() {
+    public String getId() {
 
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
 
         this.id = id;
     }
@@ -43,6 +43,10 @@ public class Items {
 
     public boolean isSelected() {
         return isSelected;
+    }
+
+    public boolean equalsId(String id) {
+        return id == this.id;
     }
 
     public void setSelected(boolean selected) {

@@ -36,6 +36,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // NASTAVITEV NASLOVA V ACTION BARU:
+        getSupportActionBar().setTitle("Vpišite se");
+
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivity(new Intent(this, MainActivity.class));

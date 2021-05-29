@@ -45,14 +45,14 @@ public class DodajNakup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // PRIDOBIVANJE TOKENA ZA AVTENTIKACIJO
+        token = SharedPrefManager.getInstance(this).tokenValue();
 
         //UREJANJE POGLEDA - transparentost ozadja, postavitev...
         setContentView(R.layout.activity_dodaj_nakup);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        String token = SharedPrefManager.getInstance(this).tokenValue();
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;

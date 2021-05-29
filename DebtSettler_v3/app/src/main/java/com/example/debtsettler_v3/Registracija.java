@@ -4,6 +4,7 @@ package com.example.debtsettler_v3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,11 +37,15 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
     private Button buttonRegister;
     private ProgressDialog progressDialog;
     private TextView textViewLogin;
+    View colorPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registracija);
+
+        // NASTAVITEV NASLOVA V ACTION BARU:
+        getSupportActionBar().setTitle("Registrirajte se");
 
         if(SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
@@ -57,6 +65,37 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
 
         buttonRegister.setOnClickListener(this);
         textViewLogin.setOnClickListener(this);
+
+
+        // COLOR PICKER
+        colorPreview = findViewById(R.id.colorPreview);
+        colorPreview.setBackgroundColor(getResources().getColor(R.color.ButtonBlue));
+        colorPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ColorPickerDialog.Builder(getApplicationContext())
+                        .setTitle("ColorPicker Dialog")
+                        .setPreferenceName("MyColorPickerDialog")
+                        .setPositiveButton("Potrdi",
+                                new ColorEnvelopeListener() {
+                                    @Override
+                                    public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
+                                        colorPreview.setBackgroundColor(envelope.getColor());
+                                    }
+                                })
+                        .setNegativeButton("Prekliči",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                })
+                        .attachAlphaSlideBar(true) // the default value is true.
+                        .attachBrightnessSlideBar(true)  // the default value is true.
+                        .setBottomSpace(12) // set a bottom space between the last slidebar and buttons.
+                        .show();
+            }
+        });
     }
 
     private void registerUser(){

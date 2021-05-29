@@ -16,6 +16,7 @@ import com.example.debtsettler_v3.R;
 import com.example.debtsettler_v3.model.Items;
 import com.example.debtsettler_v3.model.Members;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<com.example.debtsettler_v3.adapter.ItemsAdapter.ItemsViewHolder>{
@@ -48,7 +49,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<com.example.debtsettler_v
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = "";
+                //String data = "";
                 Items list1 = (Items)holder.checkBox.getTag();
 
                 list1.setSelected(holder.checkBox.isChecked());
@@ -62,13 +63,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<com.example.debtsettler_v
                     holder.itemRow.setBackgroundColor(context.getResources().getColor(R.color.white));
                 }
 
-                for (int i=0; i<itemList.size(); i++) {
-                    if (itemList.get(i).isSelected()) {
-                        data = data + "\n" + itemList.get(i).getName();
-                    }
-
-                }
-                Toast.makeText(context, "Izbrani izdelki:  \n" + data, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -95,5 +89,21 @@ public class ItemsAdapter extends RecyclerView.Adapter<com.example.debtsettler_v
             itemsOpisView = itemView.findViewById(R.id.itemOpis);
             checkBox = itemView.findViewById(R.id.itemCheckBox);
         }
+    }
+
+
+    public ArrayList<String> getAllSelected() {
+        ArrayList<String> data = new ArrayList<>();
+        data.clear();
+        for (int i=0; i<itemList.size(); i++) {
+            if (itemList.get(i).isSelected()) {
+                data.add(itemList.get(i).getId());
+            }
+        }
+        return data;
+    }
+
+    public void updateView() {
+
     }
 }

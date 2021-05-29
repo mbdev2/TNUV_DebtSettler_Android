@@ -12,6 +12,9 @@ public class zgodovina extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zgodovina);
 
+        // NASTAVITEV NASLOVA V ACTION BARU:
+        getSupportActionBar().setTitle("Zgodovina nakupov");
+
         String token = SharedPrefManager.getInstance(this).tokenValue();
     }
 }

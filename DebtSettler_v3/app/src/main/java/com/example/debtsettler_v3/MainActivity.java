@@ -1,17 +1,20 @@
 package com.example.debtsettler_v3;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -45,10 +48,14 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> usersList = new ArrayList<>();
     ArrayList<String> zneskiList = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // NASTAVITEV NASLOVA V ACTION BARU:
+        getSupportActionBar().setTitle("DebtSettler");
 
         if(!SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();

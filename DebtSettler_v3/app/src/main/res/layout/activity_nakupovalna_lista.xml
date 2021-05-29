@@ -13,39 +13,15 @@
         tools:context=".MainActivity">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cardView"
-            android:layout_width="412dp"
-            android:layout_height="54dp"
-            android:background="@color/AppBlue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nakupovalna_lista"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.501"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemListRecycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottomAppBar2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
         <com.google.android.material.bottomappbar.BottomAppBar
@@ -83,10 +59,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/itemListRecycler"
+            app:layout_constraintBottom_toBottomOf="@+id/addItemButton"
             app:layout_constraintEnd_toStartOf="@+id/addItemButton"
             app:layout_constraintStart_toStartOf="@+id/bottomAppBar2"
-            app:layout_constraintTop_toTopOf="@+id/bottomAppBar2"
+            app:layout_constraintTop_toBottomOf="@+id/itemListRecycler"
             app:srcCompat="@drawable/ic_racing_flag"
             tools:ignore="VectorDrawableCompat" />
 
@@ -94,10 +70,10 @@
             android:id="@+id/deleteItemButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="@+id/itemListRecycler"
+            app:layout_constraintBottom_toBottomOf="@+id/addItemButton"
             app:layout_constraintEnd_toEndOf="@+id/bottomAppBar2"
             app:layout_constraintStart_toEndOf="@+id/addItemButton"
-            app:layout_constraintTop_toTopOf="@+id/bottomAppBar2"
+            app:layout_constraintTop_toBottomOf="@+id/itemListRecycler"
             app:srcCompat="@drawable/ic_delete"
             tools:ignore="VectorDrawableCompat" />
 
