@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.buttonMenuOdjava:
                 SharedPrefManager.getInstance(this).logout();
                 finish();
-                startActivity(new Intent(this, Registracija.class));
+                startActivity(new Intent(this, StartScreen.class));
                 break;
 
             case R.id.buttonMenuBarva:
