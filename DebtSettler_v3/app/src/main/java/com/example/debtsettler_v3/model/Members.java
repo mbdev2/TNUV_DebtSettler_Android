@@ -6,14 +6,16 @@ public class Members {
     Integer imageUrl;
     String name;
     Double money;
+    String barvaUp;
 
 
 
-    public Members(Integer id, Integer imageUrl, String name, Double money) {
+    public Members(Integer id, Integer imageUrl, String name, Double money, String barva) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.name = name;
         this.money = money;
+        this.barvaUp=barva;
     }
 
     public Integer getId() {
@@ -51,4 +53,8 @@ public class Members {
     public void setMoney(Double money) {
         this.money = money;
     }
+
+    public String getBarvaUp() { return barvaUp; }
+
+    public void setBarvaUp(String barvaUp) { this.barvaUp=barvaUp; }
 }

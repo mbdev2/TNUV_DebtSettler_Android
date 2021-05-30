@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> usersList = new ArrayList<>();
     ArrayList<String> zneskiList = new ArrayList<>();
+    ArrayList<String> avtorBarve = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -156,6 +157,11 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             try {
+                                avtorBarve.add(obj.getString("barvaUporabnika"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
                                 barveUpHashMap.put(obj.getString("_id"), obj.getString("barvaUporabnika"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -175,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
                         for (int i = 0; i < usersList.size(); i++) {
                             double koncno = Math.round(Double.parseDouble(zneskiList.get(i)) - povprecje) / 100.0;
-                            membersList.add(new Members(i, R.drawable.person2, usersList.get(i), koncno));
+                            membersList.add(new Members(i, R.drawable.ic_baseline_person_24, usersList.get(i), koncno, avtorBarve.get(i)));
                         }
                         setMembersRecycler(membersList);
                     }
@@ -221,6 +227,11 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             try {
+                                avtorBarve.add(obj.getString("barvaUporabnika"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
                                 barveUpHashMap.put(obj.getString("_id"), obj.getString("barvaUporabnika"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -240,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
                         for (int i = 0; i < usersList.size(); i++) {
                             double koncno = Math.round(Double.parseDouble(zneskiList.get(i)) - povprecje) / 100.0;
-                            membersList.set(i, new Members(i, R.drawable.person2, usersList.get(i), koncno));
+                            membersList.set(i, new Members(i, R.drawable.ic_baseline_person_24, usersList.get(i), koncno, avtorBarve.get(i)));
                         }
                         membersAdapter.notifyDataSetChanged();
 

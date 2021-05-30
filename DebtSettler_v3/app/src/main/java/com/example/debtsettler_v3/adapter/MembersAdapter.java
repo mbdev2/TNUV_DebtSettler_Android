@@ -1,6 +1,7 @@
 package com.example.debtsettler_v3.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.debtsettler_v3.R;
 import com.example.debtsettler_v3.model.Members;
-import com.example.debtsettler_v3.MainActivity;
-import com.example.debtsettler_v3.model.Members;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MembersAdapter extends RecyclerView.Adapter<com.example.debtsettler_v3.adapter.MembersAdapter.MembersViewHolder> {
@@ -40,11 +38,10 @@ public class MembersAdapter extends RecyclerView.Adapter<com.example.debtsettler
     public void onBindViewHolder(@NonNull MembersViewHolder holder, int position) {
 
         holder.membersImageView.setImageResource(membersList.get(position).getImageUrl());
+        holder.membersImageView.setColorFilter(Color.parseColor("#"+membersList.get(position).getBarvaUp()),android.graphics.PorterDuff.Mode.MULTIPLY);
         holder.membersNameView.setText(membersList.get(position).getName());
-
         Double stanje = membersList.get(position).getMoney();
         holder.membersMoneyView.setText(stanje.toString());
-
         if (stanje >= 0.0) {
             holder.moneyImageView.setColorFilter(context.getResources().getColor(R.color.MoneyGreen));
         } else {
