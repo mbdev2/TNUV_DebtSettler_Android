@@ -1,6 +1,10 @@
 package com.example.debtsettler_v3.model;
 
-public class Members {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Members implements Serializable {
 
     Integer id;
     Integer imageUrl;
@@ -57,4 +61,9 @@ public class Members {
     public String getBarvaUp() { return barvaUp; }
 
     public void setBarvaUp(String barvaUp) { this.barvaUp=barvaUp; }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

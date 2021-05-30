@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             zneskiList.clear();
             membersList.clear();
             avtorBarve.clear();
+            usersIdList.clear();
             pridobiUporabnike();
         } else{
             shouldExecuteOnResume = true;
@@ -264,6 +267,14 @@ public class MainActivity extends AppCompatActivity {
                         .attachBrightnessSlideBar(true)  // the default value is true.
                         .setBottomSpace(12) // set a bottom space between the last slidebar and buttons.
                         .show();
+                break;
+
+            case R.id.buttonMenuNakazilo:
+                Intent intent = new Intent(MainActivity.this, DodajNakazilo.class);
+                Bundle args = new Bundle();
+                args.putSerializable("members", (Serializable) membersList);
+                intent.putExtra("bundle", args);
+                startActivity(intent);
                 break;
         }
         return true;

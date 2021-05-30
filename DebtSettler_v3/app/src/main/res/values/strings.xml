@@ -12,4 +12,5 @@
     <string name="add_item_button">add item button</string>
     <string name="nakupovalna_lista">Nakupovalna lista</string>
     <string name="sporocilo_izdelek_dodan">Izdelek uspešno dodan.</string>
+    <string name="nakazilo_uspesno">Nakazilo uspešno izvedeno.</string>
 </resources>

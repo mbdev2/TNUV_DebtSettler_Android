@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DebtSettler_v3"
         tools:ignore="ExtraText">
+
         <activity
             android:name=".StartScreen"
             android:theme="@style/Theme.DebtSettler_v3.noActionBar">
@@ -31,6 +32,9 @@
             android:theme="@style/Theme.AppCompat.AddPopUp" />
         <activity
             android:name=".DodajIzdelek"
+            android:theme="@style/Theme.AppCompat.AddPopUp" />
+        <activity
+            android:name=".DodajNakazilo"
             android:theme="@style/Theme.AppCompat.AddPopUp" />
         <activity android:name=".Registracija" />
     </application>
