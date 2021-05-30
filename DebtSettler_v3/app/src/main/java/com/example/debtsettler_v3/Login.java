@@ -1,6 +1,7 @@
 package com.example.debtsettler_v3;
 
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -36,8 +37,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // NASTAVITEV NASLOVA V ACTION BARU:
-        getSupportActionBar().setTitle("Vpišite se");
+        // NASTAVITEV NASLOVA in BACK BUTTONA V ACTION BARU:
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Vpišite se");
 
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
@@ -52,6 +55,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         progressDialog.setMessage("Prosimo pocčakajte...");
         buttonLogin.setOnClickListener(this);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 
     private void userLogin() {
         final String email = editTextEmail.getText().toString().trim();

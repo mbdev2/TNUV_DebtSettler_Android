@@ -1,6 +1,7 @@
 package com.example.debtsettler_v3;
 
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -44,8 +45,10 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registracija);
 
-        // NASTAVITEV NASLOVA V ACTION BARU:
-        getSupportActionBar().setTitle("Registrirajte se");
+        // NASTAVITEV NASLOVA in BACK BUTTONA V ACTION BARU:
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Registrirajte se");
 
         if(SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
@@ -97,6 +100,13 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 
     private void registerUser(){
         String ime = editTextIme.getText().toString().trim();

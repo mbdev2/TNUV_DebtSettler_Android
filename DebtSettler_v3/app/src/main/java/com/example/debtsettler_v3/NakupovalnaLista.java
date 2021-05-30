@@ -1,5 +1,6 @@
 package com.example.debtsettler_v3;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,8 +60,17 @@ public class NakupovalnaLista extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nakupovalna_lista);
 
-        // NASTAVITEV NASLOVA V ACTION BARU:
-        getSupportActionBar().setTitle("Nakupovalna lista");
+        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
+            finish();
+            startActivity(new Intent(this, StartScreen.class));
+        }
+
+        // NASTAVITEV NASLOVA in BACK BUTTONA V ACTION BARU:
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Nakupovalna lista");
+
+
 
         shouldExecuteOnResume = false;
 
@@ -104,6 +114,12 @@ public class NakupovalnaLista extends AppCompatActivity {
 
         pridobiIzdelke();
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override

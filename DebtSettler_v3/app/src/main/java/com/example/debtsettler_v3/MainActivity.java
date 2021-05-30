@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(!SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
-            startActivity(new Intent(this, Registracija.class));
+            startActivity(new Intent(this, StartScreen.class));
         }
 
         shouldExecuteOnResume = false;
