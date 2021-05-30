@@ -1,10 +1,13 @@
 package com.example.debtsettler_v3;
 
 import android.content.Intent;
+import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,12 +53,14 @@ public class zgodovina extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zgodovina);
 
-        // NASTAVITEV NASLOVA V ACTION BARU:
-        getSupportActionBar().setTitle("Zgodovina nakupov");
+        // NASTAVITEV NASLOVA in BACK BUTTONA V ACTION BARU:
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Zgodovina nakupov");
 
         if(!SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
-            startActivity(new Intent(this, Registracija.class));
+            startActivity(new Intent(this, StartScreen.class));
         }
 
         String token = SharedPrefManager.getInstance(this).tokenValue();
@@ -66,7 +71,19 @@ public class zgodovina extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         pridobiZgodovino();
+
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(zgodovinaRecyclerView.getContext(),
+                LinearLayoutManager.VERTICAL);
+        zgodovinaRecyclerView.addItemDecoration(dividerItemDecoration);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 
     private void setZgodovinaRecycler(List<Nakupi> dataList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
