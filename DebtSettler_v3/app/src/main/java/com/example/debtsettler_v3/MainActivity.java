@@ -1,5 +1,6 @@
 package com.example.debtsettler_v3;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,7 +8,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -15,14 +18,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.debtsettler_v3.adapter.MembersAdapter;
 import com.example.debtsettler_v3.model.Members;
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
+    String EditBarva;
+
+    String token;
+
     ArrayList<String> usersList = new ArrayList<>();
     ArrayList<String> zneskiList = new ArrayList<>();
     ArrayList<String> avtorBarve = new ArrayList<>();
@@ -59,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         // NASTAVITEV NASLOVA V ACTION BARU:
         getSupportActionBar().setTitle("DebtSettler");
 
+        // PRIDOBIVANJE TOKENA ZA AVTENTIKACIJO
+        token = SharedPrefManager.getInstance(this).tokenValue();
+
+        // PREVERJANJE ČE JE UPORABNIK PRIJAVLJEN ALI NE
         if(!SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
             startActivity(new Intent(this, StartScreen.class));
@@ -281,8 +297,73 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 startActivity(new Intent(this, Registracija.class));
                 break;
+
+            case R.id.buttonMenuBarva:
+                new ColorPickerDialog.Builder(MainActivity.this)
+                        .setTitle("ColorPicker Dialog")
+                        .setPreferenceName("MyColorPickerDialog")
+                        .setPositiveButton("Potrdi",
+                                new ColorEnvelopeListener() {
+                                    @Override
+                                    public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
+                                        EditBarva = envelope.getHexCode();
+                                        posodobiBarvo(EditBarva);
+                                    }
+                                })
+                        .setNegativeButton("Prekliči",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                })
+                        .attachAlphaSlideBar(true) // the default value is true.
+                        .attachBrightnessSlideBar(true)  // the default value is true.
+                        .setBottomSpace(12) // set a bottom space between the last slidebar and buttons.
+                        .show();
+                break;
         }
         return true;
+    }
+
+    public void posodobiBarvo(String barva) {
+        String url = "https://debtsettler.herokuapp.com/api/users/posodobibarvo";
+
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(), "Barva uspešno posodobljena", Toast.LENGTH_LONG).show();
+                        Log.i("Rest error", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e("Rest error", error.toString());
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("barvaUp", barva);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                params.put("Authorization", "Bearer " + token);
+                return params;
+            }
+        };
+
+        //RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
 }

@@ -5,4 +5,7 @@
         android:id="@+id/buttonMenuOdjava"
         android:title="Odjava"
         />
+    <item
+        android:id="@+id/buttonMenuBarva"
+        android:title="Spremeni barvo" />
 </menu>
