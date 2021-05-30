@@ -1,11 +1,5 @@
 package com.example.debtsettler_v3;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,9 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -208,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         //Log.e("Rest response", response.toString());
+                        Map<String, String> barveUpHashMap = new HashMap<String, String>();
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject obj = null;
                             try {
@@ -225,7 +220,17 @@ public class MainActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            try {
+                                barveUpHashMap.put(obj.getString("_id"), obj.getString("barvaUporabnika"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
+
+                        SharedPrefManager.getInstance(getApplicationContext())
+                                .userColorsFill(
+                                        barveUpHashMap
+                                );
 
                         int vsota = 0;
                         for (int i = 0; i < zneskiList.size(); i++) {

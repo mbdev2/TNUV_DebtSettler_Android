@@ -12,9 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -34,7 +35,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Registracija extends AppCompatActivity implements View.OnClickListener {
-    private EditText editTextIme, editTextEmail, editTextGeslo;
+    private EditText editTextIme;
+    private EditText editTextEmail;
+    private EditText editTextGeslo;
+    private String editTextBarva;
     private Button buttonRegister;
     private ProgressDialog progressDialog;
     private TextView textViewLogin;
@@ -76,7 +80,7 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
         colorPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog.Builder(getApplicationContext())
+                new ColorPickerDialog.Builder(Registracija.this)
                         .setTitle("ColorPicker Dialog")
                         .setPreferenceName("MyColorPickerDialog")
                         .setPositiveButton("Potrdi",
@@ -84,6 +88,7 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
                                     @Override
                                     public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
                                         colorPreview.setBackgroundColor(envelope.getColor());
+                                        editTextBarva = envelope.getHexCode();
                                     }
                                 })
                         .setNegativeButton("Prekliči",
@@ -150,6 +155,7 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
                 params.put("ime", ime);
                 params.put("email", email);
                 params.put("geslo", geslo);
+                params.put("barvaUporabnika", editTextBarva);
 
                 return params;
             }
