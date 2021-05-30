@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,8 +40,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -137,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
             usersList.clear();
             zneskiList.clear();
             membersList.clear();
+            avtorBarve.clear();
             pridobiUporabnike();
         } else{
             shouldExecuteOnResume = true;
