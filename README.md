@@ -12,9 +12,8 @@ Developed by Mark Breznik and Blaž Pridgar.
 - Intuitively pay-back what you own
 - Play around with various color choices!
 
-<img width="490" alt="Start Screen" src="https://user-images.githubusercontent.com/72226231/120117684-a2749c00-c18e-11eb-86b7-e7ec50bc1fbb.png">
-<img width="490" alt="Home Screen" src="https://user-images.githubusercontent.com/72226231/120117687-a3a5c900-c18e-11eb-85d7-a52b3a866219.png">
-<img width="490" alt="Purchase History" src="https://user-images.githubusercontent.com/72226231/120117688-a43e5f80-c18e-11eb-8369-363f7d58e70e.png">
+<img width="914" alt="DebtSettler Start Screen, Purchase History and Home Screen" src="https://user-images.githubusercontent.com/72226231/120117809-50804600-c18f-11eb-8ff4-19bdab49d4fd.png">
+
 
 
 ## Tech
