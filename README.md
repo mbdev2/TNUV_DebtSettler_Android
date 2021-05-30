@@ -1,0 +1,40 @@
+# DebtSettler
+## _The Last Spending App You Will Ever Need!_
+
+DebtSettler is a cloud-enabled and mobile-ready household spending tracker designed for use in dorms and shared apartments.
+Developed by Mark Breznik and Blaž Pridgar.
+
+## Features
+
+- Track household purchases with a flick of your finger
+- Figure out who owes who what
+- Share a cloud-synced shopping list with your housemates
+- Intuitively pay-back what you own
+- Play around with various color choices!
+
+## Tech
+
+DebtSettler uses a number of open source projects to work properly:
+
+- Android Studio - Native Android app of course!
+- jsonwebtoken - keep track of whose's who with privacy
+- mongoose - gotta keep the data somewhere ;)
+- passport - great webtoken manager
+- node.js - evented I/O for the backend
+- Express - fast node.js network app framework [@tjholowaychuk]
+- and many more...
+
+And of course DebtSettler itself is open source!
+
+## Installation
+
+We recommend using AtlasDB for the database host and Heroku for the REST API (node.js with Express) host. Both are reliable, fast and of course - FREE!
+
+## Development
+
+For now developement of DebtSettler has been finished - it was meant as a project for a University course, but we fell in love with the app and just couldn't resist making it public.
+
+## License
+
+MIT
+**Free Software, Hell Yeah!**
