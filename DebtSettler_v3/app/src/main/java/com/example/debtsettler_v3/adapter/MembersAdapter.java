@@ -41,7 +41,7 @@ public class MembersAdapter extends RecyclerView.Adapter<com.example.debtsettler
         holder.membersImageView.setColorFilter(Color.parseColor("#"+membersList.get(position).getBarvaUp()),android.graphics.PorterDuff.Mode.MULTIPLY);
         holder.membersNameView.setText(membersList.get(position).getName());
         Double stanje = membersList.get(position).getMoney();
-        holder.membersMoneyView.setText(stanje.toString());
+        holder.membersMoneyView.setText(membersList.get(position).getMoney().toString().replace('.', ','));
         if (stanje >= 0.0) {
             holder.moneyImageView.setColorFilter(context.getResources().getColor(R.color.MoneyGreen));
         } else {

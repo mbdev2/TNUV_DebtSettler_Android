@@ -1,20 +1,20 @@
 package com.example.debtsettler_v3;
 
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -65,6 +65,17 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
         editTextEmail=(EditText) findViewById(R.id.editTextEmail);
         editTextGeslo=(EditText) findViewById(R.id.editTextGeslo);
         textViewLogin = (TextView) findViewById(R.id.textViewLogin);
+
+        editTextGeslo.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    buttonRegister.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         buttonRegister= (Button) findViewById(R.id.buttonRegister);
 
