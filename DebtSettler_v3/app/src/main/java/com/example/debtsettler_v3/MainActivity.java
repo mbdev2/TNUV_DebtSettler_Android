@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     String token;
 
     ArrayList<String> usersList = new ArrayList<>();
+    ArrayList<String> usersIdList = new ArrayList<>();
     ArrayList<String> zneskiList = new ArrayList<>();
     ArrayList<String> avtorBarve = new ArrayList<>();
 
@@ -117,6 +119,11 @@ public class MainActivity extends AppCompatActivity {
 
         pridobiUporabnike();
 
+        // NASTAVITEV SIVIH ČRT ZA LOČENJE MED POSAMEZNIMI UPORABNIKI
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(membersRecyclerView.getContext(),
+                LinearLayoutManager.VERTICAL);
+        membersRecyclerView.addItemDecoration(dividerItemDecoration);
+
     }
 
     @Override
@@ -165,6 +172,11 @@ public class MainActivity extends AppCompatActivity {
                             }
                             try {
                                 usersList.add(obj.getString("ime"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                usersIdList.add(obj.getString("_id"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

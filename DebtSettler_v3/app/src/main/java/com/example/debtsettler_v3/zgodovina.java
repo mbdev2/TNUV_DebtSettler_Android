@@ -72,7 +72,7 @@ public class zgodovina extends AppCompatActivity {
 
         pridobiZgodovino();
 
-
+        // NASTAVITEV SIVIH ČRT ZA LOČENJE MED POSAMEZNIMI NAKUPI
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(zgodovinaRecyclerView.getContext(),
                 LinearLayoutManager.VERTICAL);
         zgodovinaRecyclerView.addItemDecoration(dividerItemDecoration);
