@@ -41,6 +41,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.app.PendingIntent.getActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     boolean shouldExecuteOnResume;
@@ -127,7 +129,8 @@ public class MainActivity extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(), "RESUMEEEEEE!", Toast.LENGTH_SHORT).show();
             usersList.clear();
             zneskiList.clear();
-            posodobiUporabnike();
+            membersList.clear();
+            pridobiUporabnike();
         } else{
             shouldExecuteOnResume = true;
         }
@@ -213,76 +216,6 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(arrayRequest);
     }
 
-    public void posodobiUporabnike() {
-        String url = "https://debtsettler.herokuapp.com/api/users";
-
-        JsonArrayRequest arrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        //Log.e("Rest response", response.toString());
-                        Map<String, String> barveUpHashMap = new HashMap<String, String>();
-                        for (int i = 0; i < response.length(); i++) {
-                            JSONObject obj = null;
-                            try {
-                                obj = response.getJSONObject(i);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                usersList.add(obj.getString("ime"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                zneskiList.add(obj.getString("stanjeDenarja"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                avtorBarve.add(obj.getString("barvaUporabnika"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                barveUpHashMap.put(obj.getString("_id"), obj.getString("barvaUporabnika"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        SharedPrefManager.getInstance(getApplicationContext())
-                                .userColorsFill(
-                                        barveUpHashMap
-                                );
-
-                        int vsota = 0;
-                        for (int i = 0; i < zneskiList.size(); i++) {
-                            vsota += Integer.parseInt(zneskiList.get(i));
-                        }
-                        double povprecje = (double) vsota / zneskiList.size();
-
-                        for (int i = 0; i < usersList.size(); i++) {
-                            double koncno = Math.round(Double.parseDouble(zneskiList.get(i)) - povprecje) / 100.0;
-                            membersList.set(i, new Members(i, R.drawable.ic_baseline_person_24, usersList.get(i), koncno, avtorBarve.get(i)));
-                        }
-                        membersAdapter.notifyDataSetChanged();
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest error", error.toString());
-                    }
-                }
-        );
-
-        requestQueue.add(arrayRequest);
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -337,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), "Barva uspešno posodobljena", Toast.LENGTH_LONG).show();
                         Log.i("Rest error", response.toString());
+                        onResume();
                     }
                 },
                 new Response.ErrorListener() {
