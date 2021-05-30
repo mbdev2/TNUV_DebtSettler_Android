@@ -1,35 +1,30 @@
 package com.example.debtsettler_v3;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.debtsettler_v3.model.Members;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class DodajNakup extends AppCompatActivity {
 
@@ -75,6 +70,17 @@ public class DodajNakup extends AppCompatActivity {
         opis = findViewById(R.id.editTextOpisNakupa);
         znesek = findViewById(R.id.editTextZnesekNakupa);
 
+        znesek.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    dodajButton.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         prekliciButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +92,7 @@ public class DodajNakup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String trgovinaStr = trgovina.getText().toString();
-                String znesekStr = znesek.getText().toString();
+                String znesekStr = znesek.getText().toString().replace(',', '.');
                 String opisStr = opis.getText().toString();
 
 
