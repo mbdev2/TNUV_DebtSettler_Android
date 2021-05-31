@@ -1,6 +1,8 @@
 # DebtSettler
 ## _The Last Spending App You Will Ever Need!_
 
+This repo contains the Android Studio portion of our project, for the REST API, check out our other repo: https://github.com/mbdev2/TNUV_DebtSettler_API
+
 DebtSettler is a cloud-enabled and mobile-ready household spending tracker designed for use in dorms and shared apartments.
 Developed by Mark Breznik and Blaž Pridgar for a course in our undergraduate study program Multimedia at the Faculty of Eletrical Engineering, University of Lubljana
 
