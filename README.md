@@ -1,4 +1,4 @@
-# DebtSettler
+# DebtSettler - Android Studio
 ## _The Last Spending App You Will Ever Need!_
 
 This repo contains the Android Studio portion of our project, for the REST API, check out our other repo: https://github.com/mbdev2/TNUV_DebtSettler_API
