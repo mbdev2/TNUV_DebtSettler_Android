@@ -2,7 +2,7 @@
 ## _The Last Spending App You Will Ever Need!_
 
 DebtSettler is a cloud-enabled and mobile-ready household spending tracker designed for use in dorms and shared apartments.
-Developed by Mark Breznik and Blaž Pridgar.
+Developed by Mark Breznik and Blaž Pridgar for a course in our undergraduate study program Multimedia at the Faculty of Eletrical Engineering, University of Lubljana
 
 ## Features
 
