@@ -1,20 +1,23 @@
 package com.example.debtsettler_v3;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -25,10 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.debtsettler_v3.model.Members;
 
-import org.json.JSONObject;
-
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -114,6 +114,17 @@ public class DodajNakazilo extends AppCompatActivity {
         opisNakazila = findViewById(R.id.editTextOpisNakazila);
         znesekNakazila = findViewById(R.id.editTextZnesekNakazila);
 
+        znesekNakazila.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    dodajNakaziloButton.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         // SPINNER ZA IZBIRO PREJEMNIKA
         prejemnik = findViewById(R.id.spinnerMembers);
 
@@ -137,49 +148,59 @@ public class DodajNakazilo extends AppCompatActivity {
                 Members koncniPrejemnik = (Members) prejemnik.getSelectedItem();
                 //Log.e("Izbrani prejemniK:", koncniPrejemnik.getName());
 
-                String znesekNakStr = znesekNakazila.getText().toString();
+                String znesekNakStr = znesekNakazila.getText().toString().replace(',', '.');
                 String opisNakStr = opisNakazila.getText().toString();
 
 
-                // Koda za klicanje API streznika
-                String url2 = "https://debtsettler.herokuapp.com/api/poravnavadolga";
+                if (opisNakStr.matches("") && znesekNakStr.matches("")) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.opozorilo_prazna_polja), Toast.LENGTH_SHORT).show();
+                } else if (!znesekNakStr.matches("\\d+(.|,)\\d{0,2}")) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.opozorilo_napacen_znesek), Toast.LENGTH_SHORT).show();
+                } else {
+                    double d = Double.parseDouble(znesekNakStr);
+                    String znesekCenti = String.valueOf((int)Math.round(d*100));
 
-                StringRequest stringRequest = new StringRequest(
-                        Request.Method.POST,
-                        url2,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.i("Rest response", getString(R.string.nakazilo_uspesno));
-                                Toast.makeText(getApplicationContext(), getString(R.string.nakazilo_uspesno), Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e("Rest error", error.toString());
-                            }
-                        }){
-                    @Override
-                    protected Map<String,String> getParams(){
-                        Map<String,String> params = new HashMap<String, String>();
-                        params.put("idUporabnikaB", koncniPrejemnik.get_Id());
-                        params.put("opisNakupa", opisNakStr);
-                        params.put("cenaNakupa", znesekNakStr);
 
-                        return params;
-                    }
+                    // Koda za klicanje API streznika
+                    String url2 = "https://debtsettler.herokuapp.com/api/poravnavadolga";
 
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<String, String>();
-                        params.put("Content-Type","application/x-www-form-urlencoded");
-                        params.put("Authorization", "Bearer " + token);
-                        return params;
-                    }
-                };
-                requestQueue.add(stringRequest);
+                    StringRequest stringRequest = new StringRequest(
+                            Request.Method.POST,
+                            url2,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.i("Rest response", getString(R.string.nakazilo_uspesno));
+                                    Toast.makeText(getApplicationContext(), getString(R.string.nakazilo_uspesno), Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.e("Rest error", error.toString());
+                                }
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("idUporabnikaB", koncniPrejemnik.get_Id());
+                            params.put("opisNakupa", opisNakStr);
+                            params.put("cenaNakupa", znesekCenti);
+
+                            return params;
+                        }
+
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("Content-Type", "application/x-www-form-urlencoded");
+                            params.put("Authorization", "Bearer " + token);
+                            return params;
+                        }
+                    };
+                    requestQueue.add(stringRequest);
+                }
             }
         });
 

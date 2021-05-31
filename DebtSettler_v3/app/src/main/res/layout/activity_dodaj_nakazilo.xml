@@ -117,6 +117,8 @@
         android:ems="10"
         android:hint="Zapišite znesek ki ga želite nakazati."
         android:inputType="numberDecimal"
+        android:digits="0123456789.,"
+        android:singleLine="true"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

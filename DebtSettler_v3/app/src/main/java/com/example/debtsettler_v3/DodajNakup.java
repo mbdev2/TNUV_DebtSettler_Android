@@ -104,7 +104,7 @@ public class DodajNakup extends AppCompatActivity {
                 }
                 else {
                     double d=Double.parseDouble(znesekStr);
-                    String znesekCenti = String.valueOf(d*100);
+                    String znesekCenti = String.valueOf((int)Math.round(d*100));
 
                     // Koda za klicanje API streznika
 
