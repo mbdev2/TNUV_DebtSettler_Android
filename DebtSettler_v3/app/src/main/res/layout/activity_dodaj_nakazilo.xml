@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/nakazilo_pop_up"
+    android:background="@drawable/add_pop_up"
     tools:context=".DodajNakazilo">
 
     <TextView
