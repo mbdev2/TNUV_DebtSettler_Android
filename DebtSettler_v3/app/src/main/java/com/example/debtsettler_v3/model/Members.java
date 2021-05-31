@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class Members implements Serializable {
 
     Integer id;
+    String _id;
     Integer imageUrl;
     String name;
     Double money;
@@ -14,8 +15,9 @@ public class Members implements Serializable {
 
 
 
-    public Members(Integer id, Integer imageUrl, String name, Double money, String barva) {
+    public Members(Integer id, String _id, Integer imageUrl, String name, Double money, String barva) {
         this.id = id;
+        this._id = _id;
         this.imageUrl = imageUrl;
         this.name = name;
         this.money = money;
@@ -30,6 +32,16 @@ public class Members implements Serializable {
     public void setId(Integer id) {
 
         this.id = id;
+    }
+
+    public String get_Id() {
+
+        return _id;
+    }
+
+    public void set_Id(String _id) {
+
+        this._id = _id;
     }
 
     public Integer getImageUrl() {

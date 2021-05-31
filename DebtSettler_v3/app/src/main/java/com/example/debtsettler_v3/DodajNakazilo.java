@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +25,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.debtsettler_v3.model.Members;
 
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,24 +57,37 @@ public class DodajNakazilo extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        //PRIDOBI ID PRIJAVLJENEGA UPORABNIKA
-        idPrijavljenega();
+
 
         // PRIDOBIVANJE PODATKOV IZ PREJŠNJE AKTIVNOSTI (ID in imena članov)
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("bundle");
         members = (ArrayList<Members>) args.getSerializable("members");
 
-        for(int i=0; i<members.size(); i++) {
-            if (members.get(i).getId().toString() == idPrijav) {
-                members.remove(i);
-            }
-        }
-        Log.e("Tukaj:", String.valueOf(members.size()));
-
 
         // PRIDOBIVANJE TOKENA ZA AVTENTIKACIJO
         token = SharedPrefManager.getInstance(this).tokenValue();
+
+        //PRIDOBI ID PRIJAVLJENEGA UPORABNIKA
+        try {
+            String[] split = token.split("\\.");
+            idPrijav = getJson(split[1]).substring(8, 32);
+        } catch (UnsupportedEncodingException e) {
+            //Error
+            Log.e("ID-from-token-error", e.toString());
+        }
+
+        int index = -1;
+        for(int i=0; i<members.size(); i++) {
+
+            if (members.get(i).get_Id().equals(idPrijav)) {
+                index = i;
+            }
+        }
+        if (index >= 0) {
+            members.remove(index);
+        }
+
 
         //UREJANJE POGLEDA - transparentost ozadja, postavitev...
 
@@ -147,7 +164,7 @@ public class DodajNakazilo extends AppCompatActivity {
                     @Override
                     protected Map<String,String> getParams(){
                         Map<String,String> params = new HashMap<String, String>();
-                        params.put("idUporabnikaB", koncniPrejemnik.getId().toString());
+                        params.put("idUporabnikaB", koncniPrejemnik.get_Id());
                         params.put("opisNakupa", opisNakStr);
                         params.put("cenaNakupa", znesekNakStr);
 
@@ -168,36 +185,9 @@ public class DodajNakazilo extends AppCompatActivity {
 
     }
 
-
-    public void idPrijavljenega() {
-        String url = "https://debtsettler.herokuapp.com/api/users/pridobiid";
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.GET,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("Rest response", "id prijavljenega pridobljen.");
-                        idPrijav = response;
-                        Log.e("Id prijavljenega:", idPrijav);
-                        finish();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest error", error.toString());
-                        Log.e("TU SE MI ZATAKNE", "ZEP");
-                    }
-                }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
-                params.put("Authorization", "Bearer "+token);
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
+    private static String getJson(String strEncoded) throws UnsupportedEncodingException {
+        byte[] decodedBytes = Base64.decode(strEncoded, Base64.URL_SAFE);
+        return new String(decodedBytes, "UTF-8");
     }
+
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         // PRIDOBIVANJE TOKENA ZA AVTENTIKACIJO
         token = SharedPrefManager.getInstance(this).tokenValue();
+
 
         // PREVERJANJE ČE JE UPORABNIK PRIJAVLJEN ALI NE
         if(!SharedPrefManager.getInstance(this).isLoggedIn()){
@@ -152,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         membersRecyclerView.setAdapter(membersAdapter);
     }
 
+
     //======== Koda za klicanje API streznika  ======================================================================
     //     za pridobivanje podatkov o uporabnikih in njihovem stanju
     public void pridobiUporabnike() {
@@ -213,7 +217,8 @@ public class MainActivity extends AppCompatActivity {
 
                         for (int i = 0; i < usersList.size(); i++) {
                             double koncno = Math.round(Double.parseDouble(zneskiList.get(i)) - povprecje) / 100.0;
-                            membersList.add(new Members(i, R.drawable.ic_baseline_person_24, usersList.get(i), koncno, avtorBarve.get(i)));
+                            membersList.add(new Members(i, usersIdList.get(i), R.drawable.ic_baseline_person_24, usersList.get(i), koncno, avtorBarve.get(i)));
+
                         }
                         setMembersRecycler(membersList);
                     }
